@@ -67,11 +67,17 @@ namespace _28_NguyenQuangVinh_ShopPizza.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Customer");
                 });

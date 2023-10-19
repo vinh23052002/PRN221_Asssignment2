@@ -1,22 +1,12 @@
 ﻿@page
-@model _28_NguyenQuangVinh_ShopPizza.Pages.Orders.IndexModel
+@model _28_NguyenQuangVinh_ShopPizza.Pages.ViewOrderModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ViewOrder";
 }
 
-<h1>Order List</h1>
+<h1>ViewOrder</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<form method="post">
-    <div>
-        StartDate: <input asp-for="TimeStart"/>
-        EndDate:   <input asp-for="TimeEnd" />
-        <button type="submit">Search</button>
-    </div>
-</form>
 
 <table class="table">
     <thead>
@@ -61,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.ShipAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+                @Html.DisplayFor(modelItem => item.Customer.Address)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |

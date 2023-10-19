@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using _28_NguyenQuangVinh_ShopPizza.Data;
 using _28_NguyenQuangVinh_ShopPizza.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _28_NguyenQuangVinh_ShopPizza.Pages.Customers
 {
+    [Authorize(Policy = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;

@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _28_NguyenQuangVinh_ShopPizza.Data;
 using _28_NguyenQuangVinh_ShopPizza.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _28_NguyenQuangVinh_ShopPizza.Pages.Customers
 {
+    [Authorize(Roles = "1")]
     public class EditModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;

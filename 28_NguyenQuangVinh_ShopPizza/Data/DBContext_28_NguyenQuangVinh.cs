@@ -21,6 +21,9 @@ namespace _28_NguyenQuangVinh_ShopPizza.Data
         {
             modelBuilder.Entity<OrderDetail>()
                 .HasKey(od => new { od.OrderId, od.ProductId });
+            modelBuilder.Entity<Customer>()
+                .HasIndex(c => c.Username)
+                .IsUnique();
         }
 
         public DbSet<_28_NguyenQuangVinh_ShopPizza.Models.Order>? Order { get; set; }

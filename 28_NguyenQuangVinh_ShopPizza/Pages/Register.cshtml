@@ -10,17 +10,34 @@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <form id="login-form" class="form" action="" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="alert-success">@Model.SuccessTxt</div>
                         <h3 class="text-center text-info">Register</h3>
                         <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
-                            <input type="text" name="username" id="username" class="form-control">
+                            <input asp-for="customer.Username" class="form-control">
+                            <span asp-validation-for="customer.Username" class="text-danger"></span><br/>
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
-                            <input type="text" name="password" id="password" class="form-control mt-2">
-                            <label for="password" class="text-info">Password Confirm:</label><br>
-                            <input type="text" name="passwordconfirm" id="passwordconfirm" class="form-control">
+                            <input asp-for="customer.Password" class="form-control mt-2" >
+                            <span asp-validation-for="customer.Password" class="text-danger"></span><br/>
 
+                            <label for="password" class="text-info">Password Confirm:</label><br>
+                            <input asp-for="passwordConfirm" class="form-control">
+                            <span asp-validation-for="passwordConfirm" class="text-danger"></span><br />
+
+                            <label for="fullname" class="text-info">Full Name:</label><br>
+                            <input asp-for="customer.FullName" class="form-control">
+                            <span asp-validation-for="customer.FullName" class="text-danger"></span><br />
+
+                            <label for="address" class="text-info">Address:</label><br>
+                            <input asp-for="customer.Address" class="form-control">
+                            <span asp-validation-for="customer.Address" class="text-danger"></span><br />
+
+                            <label for="phone" class="text-info">Phone:</label><br>
+                            <input asp-for="customer.Phone" class="form-control">
+                            <span asp-validation-for="customer.Phone" class="text-danger"></span><br />
                         </div>
                         <div class="form-group mt-2">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">

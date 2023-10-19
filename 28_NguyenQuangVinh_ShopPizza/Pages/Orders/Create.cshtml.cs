@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using _28_NguyenQuangVinh_ShopPizza.Data;
 using _28_NguyenQuangVinh_ShopPizza.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
 {
+    [Authorize(Roles = "1")]
     public class CreateModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;
@@ -18,7 +20,7 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
         {
             _context = context;
         }
-
+       
         public IActionResult OnGet()
         {
         ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerId");
@@ -32,10 +34,6 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          //if (!ModelState.IsValid || _context.Order == null || Order == null)
-          //  {
-          //      return Page();
-          //  }
 
             _context.Order.Add(Order);
             await _context.SaveChangesAsync();

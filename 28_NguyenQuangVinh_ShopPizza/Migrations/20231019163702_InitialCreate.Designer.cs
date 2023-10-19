@@ -12,7 +12,7 @@ using _28_NguyenQuangVinh_ShopPizza.Data;
 namespace _28_NguyenQuangVinh_ShopPizza.Migrations
 {
     [DbContext(typeof(DBContext_28_NguyenQuangVinh))]
-    [Migration("20231018153413_InitialCreate")]
+    [Migration("20231019163702_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,11 +69,17 @@ namespace _28_NguyenQuangVinh_ShopPizza.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Customer");
                 });

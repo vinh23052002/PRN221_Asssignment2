@@ -9,25 +9,29 @@ using _28_NguyenQuangVinh_ShopPizza.Data;
 using _28_NguyenQuangVinh_ShopPizza.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace _28_NguyenQuangVinh_ShopPizza.Pages.Customers
+namespace _28_NguyenQuangVinh_ShopPizza.Pages
 {
-    [Authorize(Roles = "1")]
-    public class IndexModel : PageModel
+    [Authorize(Roles = "0")]
+    public class ViewOrderModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;
 
-        public IndexModel(_28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh context)
+        public ViewOrderModel(_28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh context)
         {
             _context = context;
         }
 
-        public IList<Customer> Customer { get;set; } = default!;
+        public IList<Order> Order { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Customer != null)
+            int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+            if (_context.Order != null)
             {
-                Customer = await _context.Customer.ToListAsync();
+                Order = await _context.Order
+                .Include(o => o.Customer)
+                .Where(o => o.CustomerId == id) 
+                .ToListAsync();
             }
         }
     }

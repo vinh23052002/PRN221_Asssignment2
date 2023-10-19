@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using _28_NguyenQuangVinh_ShopPizza.Data;
 using _28_NguyenQuangVinh_ShopPizza.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
 {
+    [Authorize(Roles = "1")]
     public class IndexModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;
@@ -18,6 +21,13 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
         {
             _context = context;
         }
+        [BindProperty]
+        [DataType(DataType.Date)]
+        public DateTime TimeStart { get; set; } = DateTime.Now;
+        [DataType(DataType.Date)]
+        [BindProperty]
+        public DateTime TimeEnd { get; set; } = DateTime.Now.AddYears(1);
+
 
         public IList<Order> Order { get;set; } = default!;
 
@@ -26,7 +36,18 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
             if (_context.Order != null)
             {
                 Order = await _context.Order
-                .Include(o => o.Customer).ToListAsync();
+                .Include(o => o.Customer)
+                .ToListAsync();
+            }
+        }
+
+        public void OnPost()
+        {
+            if (_context.Order != null)
+            {
+                Order = _context.Order
+                .Include(o => o.Customer)
+                .Where(o => o.OrderDate >= TimeStart && o.OrderDate <= TimeEnd).ToList();
             }
         }
     }

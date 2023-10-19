@@ -10,36 +10,36 @@ using _28_NguyenQuangVinh_ShopPizza.Data;
 using _28_NguyenQuangVinh_ShopPizza.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace _28_NguyenQuangVinh_ShopPizza.Pages.Products
+namespace _28_NguyenQuangVinh_ShopPizza.Pages
 {
-    [Authorize(Roles = "1")]
-    public class EditModel : PageModel
+    [Authorize(Policy = "User")]
+    public class ProfileModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;
 
-        public EditModel(_28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh context)
+        public ProfileModel(_28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Product Product { get; set; } = default!;
+        public Customer Customer { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (id == null || _context.Product == null)
+            int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+
+            if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var product =  await _context.Product.FirstOrDefaultAsync(m => m.ProductId == id);
-            if (product == null)
+            var customer =  await _context.Customer.FirstOrDefaultAsync(m => m.CustomerId == id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            Product = product;
-           ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryId");
-           ViewData["SupplierId"] = new SelectList(_context.Set<Supplier>(), "SupplierId", "SupplierId");
+            Customer = customer;
             return Page();
         }
 
@@ -47,12 +47,8 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Products
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
 
-            _context.Attach(Product).State = EntityState.Modified;
+            _context.Attach(Customer).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +56,7 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Products
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(Product.ProductId))
+                if (!CustomerExists(Customer.CustomerId))
                 {
                     return NotFound();
                 }
@@ -73,9 +69,9 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Products
             return RedirectToPage("./Index");
         }
 
-        private bool ProductExists(int id)
+        private bool CustomerExists(int id)
         {
-          return (_context.Product?.Any(e => e.ProductId == id)).GetValueOrDefault();
+          return (_context.Customer?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }
     }
 }

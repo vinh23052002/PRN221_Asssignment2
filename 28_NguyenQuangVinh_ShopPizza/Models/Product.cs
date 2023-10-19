@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace _28_NguyenQuangVinh_ShopPizza.Models
 {
@@ -11,9 +13,12 @@ namespace _28_NguyenQuangVinh_ShopPizza.Models
         public int CategoryId { get; set; }
         public string QuantityPerUnit { get; set; }
         public Double UnitPrice { get; set; }
-        public string ProductImage { get; set; }   
-        public ICollection<OrderDetail> OrderDetails { get; set; }  
+        public string ProductImage { get; set; }
+        [ValidateNever]
+        public ICollection<OrderDetail> OrderDetails { get; set; }
+        [ValidateNever]
         public Supplier Supplier { get; set; }
+        [ValidateNever]
         public Category Category { get; set; }
 
     }
