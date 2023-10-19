@@ -15,20 +15,23 @@
             @Html.DisplayNameFor(model => model.Order.OrderDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.OrderDate)
+            @Model.Order.OrderDate.ToString("dd/MM/yyyy")
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Order.RequiredDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.RequiredDate)
+            @Model.Order.RequiredDate.ToString("dd/MM/yyyy")
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Order.ShippedDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.ShippedDate)
+            @Model.Order.ShippedDate.ToString("dd/MM/yyyy")
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Order.Freight)
         </dt>

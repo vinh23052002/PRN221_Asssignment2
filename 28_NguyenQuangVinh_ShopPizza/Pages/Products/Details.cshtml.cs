@@ -30,7 +30,10 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Products
                 return NotFound();
             }
 
-            var product = await _context.Product.FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = await _context.Product
+                .Include(p => p.Category)
+                .Include(p => p.Supplier)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();

@@ -31,7 +31,9 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
                 return NotFound();
             }
 
-            var order = await _context.Order.FirstOrDefaultAsync(m => m.OrderId == id);
+            var order = await _context.Order
+                .Include(o => o.Customer)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
 
             if (order == null)
             {

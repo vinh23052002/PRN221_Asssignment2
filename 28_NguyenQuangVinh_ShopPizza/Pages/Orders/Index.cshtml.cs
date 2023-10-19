@@ -37,6 +37,7 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
             {
                 Order = await _context.Order
                 .Include(o => o.Customer)
+                .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
             }
         }
@@ -47,7 +48,9 @@ namespace _28_NguyenQuangVinh_ShopPizza.Pages.Orders
             {
                 Order = _context.Order
                 .Include(o => o.Customer)
-                .Where(o => o.OrderDate >= TimeStart && o.OrderDate <= TimeEnd).ToList();
+                .Where(o => o.OrderDate >= TimeStart && o.OrderDate <= TimeEnd)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
             }
         }
     }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace _28_NguyenQuangVinh_ShopPizza.Pages.Customers
 {
-    [Authorize(Policy = "Admin")]
+    [Authorize(Roles = "1")]
     public class CreateModel : PageModel
     {
         private readonly _28_NguyenQuangVinh_ShopPizza.Data.DBContext_28_NguyenQuangVinh _context;
